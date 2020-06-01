@@ -1,6 +1,6 @@
 <template>
 	<ul>
-		<li v-for="image in images" :key="image._id">
+		<li v-for="image in $store.state.images" :key="image._id">
 			<img :src="image.image_url" width="100" height="100"/>
 			<button @click="removeImage(image)">Delete</button>
 		</li>
@@ -10,6 +10,7 @@
 
 <script>
 	//import { mapState, mapMutations, mapActions } from 'vuex'
+	//import { store } from '@/store'
 	const URL = 'https://vuex-server.herokuapp.com'
 	export default {
 		data () {
@@ -21,7 +22,9 @@
 		mounted() {
 			this.fetchImages()
 		},
-		computed: {},
+		computed: {
+			
+		},
 		methods: {
 			toggleLoading() {
 				this.loading = !this.loading
@@ -34,7 +37,7 @@
 					.then(res => res.json() )
 					.then(output => {
 						this.toggleLoading()
-						this.images = output
+						this.$store.commit('setState', {images:output})
 					})
 					.catch(error => {
 						console.error(error)
@@ -42,8 +45,9 @@
 			},
 			async removeImage(payload) {
 
-				this.images.splice(
-					this.images.findIndex(image => image._id === payload._id),
+				var images = this.$store.state.images;
+				images.splice(
+					images.findIndex(image => image._id === payload._id),
 					1
 				)
 
@@ -56,6 +60,7 @@
 				})
 				.then(res => res.json() )
 				.then(response => {
+					this.$store.commit('setState', {images:images})
 					console.log( response )
 				})
 			}

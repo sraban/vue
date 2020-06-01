@@ -13,10 +13,15 @@ var server = {
 
 export default new Vuex.Store({
 	state: {
-		loginInfo: server
+		loginInfo: server,
+		images: []
 	},
 	mutations: {
-		//
+		setState (state, keyValue ) {
+			for(let key in keyValue) {
+				state[key] = keyValue[key]
+			}
+		}
 	},
 	actions: {
 		//

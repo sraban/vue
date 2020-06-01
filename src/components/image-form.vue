@@ -18,19 +18,24 @@
 		data () {
 			return {
 				loading: false,
-				temp_images: [],
-				images: []
+				temp_images: []
 			}
 		},
-		computed: {
+		mounted() {
 
+		},
+		computed: {
+			
 		},
 		methods: { 
 			toggleLoading() {
 				this.loading = !this.loading
 			},
 			addImage(payload) {
-				this.images.unshift(payload)
+				var images = this.$store.state.images
+				images.unshift(payload)
+
+				this.$store.commit('setState', {images})
 			},
 			uploadImages(e) {
 
@@ -46,7 +51,8 @@
 						this.toggleLoading()
 						e.target.reset()
 						this.temp_images = []
-						this.addImage(rex.data)
+						let data = JSON.parse(JSON.stringify(rex))
+						this.addImage(data)
 					})
 					.catch(error => {
 						console.error(error)

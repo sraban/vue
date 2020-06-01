@@ -22,7 +22,7 @@ Vue.use(VueRouter)
   },
   {
     path: '/shopping',
-    name: 'employe',
+    name: 'shopping',
     component: () => import('../views/shoppingCart/index.vue')
   },
   {
