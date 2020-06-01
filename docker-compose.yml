@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+
+  #NG Service
+  vue2test:
+    build:
+      context: .
+      dockerfile: ./DockerFile
+    image: vue2i
+    container_name: vue2c
+    tty: true
+    ports:
+      - 8080:8080
+      - 8000:8000
+    volumes:
+      - ./:/project

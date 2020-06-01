@@ -1,0 +1,13 @@
+FROM node:12.16.3-alpine
+WORKDIR /project
+RUN npm uninstall vue-cli -g
+RUN npm uninstall vue-router -g
+RUN npm uninstall @vue/cli -g
+RUN npm uninstall @vue/cli-service-global -g
+RUN npm install -g @vue/cli
+#RUN npm install -g @vue/cli-service-global
+#COPY package.json ./
+#COPY . /project
+#EXPOSE 3000
+#CMD npm start
+#CMD ng serve --host 0.0.0.0
