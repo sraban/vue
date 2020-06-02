@@ -1,5 +1,194 @@
+<section class="authentication container">
+<h1>Register</h1>
 
-<section class="authentication">
-  <h1>authentication Component</h1>
+
+<form>
+      <div class="row form-group">
+        <div class="col-md-5">
+          <input type="text"
+                    label="Company"
+                    :disabled="true"
+                    placeholder="Light dashboard"
+                    class="form-control"
+                    v-model="user.company">
+          </input>
+        </div>
+        <div class="col-md-3">
+          <input type="text"
+                    label="Username"
+                    placeholder="Username"
+                    class="form-control"
+                    @input="$v.user.username.$touch()"
+                    v-model.trim="$v.user.username.$model"
+                    />
+<div v-if="submitted || $v.user.username.$error">
+	<div class="invalid-feedback" v-if="!$v.user.username.required">UserName is required</div>
+	<div class="invalid-feedback" v-else-if="!$v.user.username.minLength">Min Length is 2 chars</div>
+	<div class="invalid-feedback" v-else-if="!$v.user.username.maxLength">Max Length is 10 Chars</div>
+	<div class="invalid-feedback" v-else-if="!$v.user.username.numeric">Only numbers/digits</div>
+</div>
+        </div>
+        <div class="col-md-4">
+          <input type="email"
+                    label="Email"
+                    placeholder="Email"
+                    class="form-control"
+                    @input="$v.user.email.$touch()"
+                    @blur="$v.user.email.$touch()"
+                    v-model="user.email"/>
+
+<div v-if="submitted || $v.user.email.$error">
+	<div class="invalid-feedback" v-if="!$v.user.email.requiredIf">Email is required</div>
+	<div class="invalid-feedback" v-else-if="!$v.user.email.email">Email is not valid</div>
+</div>
+
+        </div>
+      </div>
+
+      <div class="row form-group">
+        <div class="col-md-6">
+
+          <input type="text"
+                    label="First Name"
+                    placeholder="First Name"
+                    class="form-control"
+                    @input="$v.user.firstName.$touch()"
+                    :class="{ 'is-invalid': submitted && $v.user.firstName.$error }"
+                    v-model="user.firstName">
+          </input>
+          
+          <div v-if="submitted || $v.user.firstName.$error">
+          	<div class="invalid-feedback" v-if="!$v.user.firstName.required">First Name is required</div>
+          </div>
+
+        </div>
+        <div class="col-md-6">
+          <input type="text"
+                    label="Last Name"
+                    placeholder="Last Name"
+                    class="form-control"
+                    v-model="user.lastName">
+          </input>
+        </div>
+      </div>
+
+      <div class="row form-group">
+        <div class="col-md-12">
+          <input type="text"
+                    label="Address"
+                    placeholder="Home Address"
+                    class="form-control"
+                    v-model="user.address">
+          </input>
+        </div>
+      </div>
+
+      <div class="row form-group">
+        <div class="col-md-4">
+          <select label="City"
+                    placeholder="City"
+                    class="form-control"
+                    v-model="user.city">
+                    <option value="BBI">Bhubaneswar</option>
+                    <option value="BLR">Bangalore</option>
+                    </select>
+          </input>
+        </div>
+        <div class="col-md-4">
+          <select label="Country"
+                    placeholder="Country"
+                    class="form-control"
+                    v-model="user.country">
+                    <option value="">--Select--</option>
+                    <option value="IN">India</option>
+                    <option value="US">USA</option>
+                    <option value="AS">Austrelia</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <input type="number"
+                    label="Postal Code"
+                    placeholder="ZIP Code"
+                    class="form-control"
+                    v-model="user.postalCode">
+          </input>
+        </div>
+      </div>
+
+      <div class="row form-group">
+        <div class="col-md-4">
+        	<input type="password"
+                    label="Password"
+                    placeholder="Password"
+                    class="form-control"
+                    @input="$v.user.password.$touch()"
+                    v-model="user.password"/>
+
+
+<div v-if="submitted || $v.user.password.$error" class="invalid-feedback">
+	<span v-if="!$v.user.password.required"> Password is required</span>
+	<span v-else-if="!$v.user.password.isPasswordStrong"> Between 8 -20 Chars</span>
+</div>         
+
+        </div>
+        <div class="col-md-4">
+	        <input type="password"
+	                    label="Re-Password"
+	                    placeholder="Re-Password"
+	                    class="form-control"
+	                    @input="$v.user.cnfpassword.$touch()"
+	                    v-model="user.cnfpassword"/>
+
+<div v-if="submitted || $v.user.cnfpassword.$error" class="invalid-feedback">
+	<span v-if="!$v.user.cnfpassword.required">Confirm Password is required</span>
+	<span v-else-if="!$v.user.cnfpassword.sameAsPassword">Passwords must match</span>
+</div>
+
+        </div>
+        <div class="col-md-4">
+        </div>
+      </div>
+
+      <div class="row form-group">
+        <div class="col-md-12">
+            <label>About Me</label>
+            <textarea rows="5" class="form-control border-input"
+                      placeholder="Here can be your description"
+                      v-model="user.aboutMe">
+              </textarea>
+        </div>
+      </div>
+
+	   <div class="row form-group">
+        <div class="col-md-6">
+           <label class="checkbox-inline">
+           		<input type="checkbox" v-model="user.term"> Terms
+           </label>
+        </div>
+        <div class="col-md-6">
+        	<label class="radio-inline">
+        	<input type="radio" v-model="user.gender" name="gender" value="M"/>
+        	Male</label>
+        	
+        	<label class="radio-inline">
+			<input type="radio" v-model="user.gender" name="gender" value="F"/>
+        	Female:</label>
+        	
+        </div>
+       </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-info btn-fill float-right" @click.prevent="updateProfile">
+          Register
+        </button>
+      </div>
+      <div class="clearfix"></div>
+
+
+<textarea style="margin-top: 20px; width: 1151px; height: 219px;">
+
+</textarea>
+
+    </form>
+
 </section>
-

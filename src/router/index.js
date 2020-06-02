@@ -8,7 +8,12 @@ Vue.use(VueRouter)
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    beforeEnter(to, from, next) {
+      //const lang = to.params
+      //return next("de")
+      return next()
+    }
   },
   {
     path: '/emp',
@@ -42,6 +47,7 @@ Vue.use(VueRouter)
 
 const router = new VueRouter({
   mode: 'history',
+  base: process.env.BASE_URL,
   routes
 })
 
